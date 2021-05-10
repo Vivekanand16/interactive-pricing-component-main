@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link href="/styles.css" rel="stylesheet" />
+    <title>Frontend Mentor | Interactive pricing component</title>
+  </head>
+  <body>
+    <main class="pricing-component">
+      <section class="title-wrap">
+        <div class="title">
+          <h1>Simple, traffic-based pricing</h1>
+          <span>Sign-up for our 30-day trial.</span>
+          <span> No credit card required. </span>
+        </div>
+      </section>
+      <section class="card">
+        <div class="heading">
+          <div class="pageviews">
+            <span class="count">100K</span>
+            <span class="label">Pageviews</span>
+          </div>
+          <div class="pricing">
+            <span class="currency">$</span>
+            <span class="amount">16.00</span>
+            <span class="month-label"> /month</span>
+          </div>
+          <div class="slider">
+            <input type="range" name="range-input" min="1" max="5" value="3" />
+            <span class="fill"></span>
+          </div>
+        </div>
+        <div class="billing">
+          <span class="monthly">Monthly Billing</span>
+          <label class="toggle-switch">
+            <input type="checkbox" name="billing-input" />
+            <span class="switch" />
+          </label>
+
+          <span class="Yearly">Yearly Billing</span>
+          <span class="discount desktop">25% discount</span>
+          <span class="discount mobile">-25%</span>
+        </div>
+        <div class="footer">
+          <ul>
+            <li class="benefits">Unlimited websites</li>
+            <li class="benefits">100% data ownership</li>
+            <li class="benefits">Email reports</li>
+          </ul>
+          <button class="trial-btn">Start my trial</button>
+        </div>
+      </section>
+    </main>
+    <script>
+      const prices = [8, 12, 16, 24, 36];
+      function calculatePricing(selectedRange = 0, isYearlyBilling = false) {
+        const currentPricing = prices[selectedRange];
+        let discount = 0;
+        if (isYearlyBilling) {
+          discount = currentPricing * 0.25;
+        }
+        const priceAfterDiscount = parseFloat(
+          currentPricing - discount
+        ).toFixed(2);
+
+        return priceAfterDiscount;
+      }
+
+      document
+        .querySelector(".slider input[type='range']")
+        .addEventListener("change", (event) => {
+          const selectedRange = parseInt(event.target.value) - 1;
+          const billingCheckbox = document.querySelector(
+            ".toggle-switch input[type='checkbox']"
+          );
+          const sliderFillElement = document.querySelector(".slider .fill");
+          const pricingElement = document.querySelector(".pricing .amount");
+          const isYearlyBilling = billingCheckbox.checked || false;
+          sliderFillElement.style.width = `${parseInt(selectedRange) * 25}%`;
+          pricingElement.textContent = calculatePricing(
+            selectedRange,
+            isYearlyBilling
+          );
+        });
+
+      document
+        .querySelector(".toggle-switch input[type='checkbox']")
+        .addEventListener("change", (event) => {
+          const isYearlyBilling = event.target.checked;
+          const pricingElement = document.querySelector(".pricing .amount");
+          const rangeInput = document.querySelector(
+            ".slider input[type='range']"
+          );
+          const selectedRange = parseInt(rangeInput.value) - 1;
+          pricingElement.textContent = calculatePricing(
+            selectedRange,
+            isYearlyBilling
+          );
+        });
+    </script>
+  </body>
+</html>
