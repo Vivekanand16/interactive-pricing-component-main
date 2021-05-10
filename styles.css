@@ -12,7 +12,7 @@
   outline: 0;
 }
 body {
-  background: url("images/bg-pattern.svg") no-repeat;
+  background: url("/images/bg-pattern.svg") no-repeat;
 }
 .pricing-component {
   display: flex;
@@ -31,9 +31,11 @@ body {
 .title-wrap h1 {
   color: hsl(227, 35%, 25%);
 }
-.title-wrap span {
+.title-wrap h3 {
   color: var(--text-color);
   font-size: 0.75rem;
+  display: inline-block;
+  font-weight: normal;
 }
 .card {
   width: 450px;
@@ -196,7 +198,7 @@ input[type="range"]:focus {
   box-shadow: 0px 2px 5px 1px;
 }
 @media only screen and (max-width: 767px) {
-  .title-wrap span {
+  .title-wrap h3 {
     display: block;
   }
   .card {
